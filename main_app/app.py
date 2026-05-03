@@ -106,6 +106,7 @@ def doctor_login():
 
     return render_template("doctor_login.html")
 
+
 # ---------------- PATIENT DASHBOARD ----------------
 
 @app.route("/patient/dashboard")
