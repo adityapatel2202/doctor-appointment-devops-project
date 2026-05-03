@@ -495,7 +495,7 @@ footer {
     padding: 18px;
 }
 
-/* Responsive home page */
+/* Responsive home page    */
 @media (max-width: 900px) {
     .hero-section {
         grid-template-columns: 1fr;
