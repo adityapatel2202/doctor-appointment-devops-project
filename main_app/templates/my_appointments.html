@@ -37,7 +37,7 @@
 
                 {% for appointment in appointments %}
                 <tr>
-                    <td>Doctor ID: {{ appointment.doctor_id }}</td>
+                    <td>{{ appointment.doctor_name }}</td>
                     <td>{{ appointment.specialization }}</td>
                     <td>{{ appointment.appointment_date }}</td>
                     <td>{{ appointment.appointment_time }}</td>
