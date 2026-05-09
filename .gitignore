@@ -1,0 +1,7 @@
+# Environment files
+.env
+
+
+# Certificate/Key files
+*.pem
+
