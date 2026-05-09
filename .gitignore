@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Environment files
 .env
 
@@ -5,3 +6,9 @@
 # Certificate/Key files
 *.pem
 
+=======
+# Ignore environment YAML and private key files
+.env
+.yml
+*.pem
+>>>>>>> 379232e (Fix doctor dashboard appointment display)
