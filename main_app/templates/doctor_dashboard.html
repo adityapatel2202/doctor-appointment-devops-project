@@ -16,7 +16,7 @@
             </div>
 
             <div class="header-actions">
-                <a class="btn" href="{{ url_for('doctor_profile') }}">My Profile</a>
+                <a class="btn" href="{{ url_for('doctor_dashboard') }}">My Profile</a>
                 <a class="btn" href="{{ url_for('add_slot') }}">Add Slot</a>
                 <a class="btn logout-btn" href="{{ url_for('logout') }}">Logout</a>
             </div>
@@ -53,7 +53,7 @@
 
                     {% for appointment in appointments %}
                     <tr>
-                        <td>{{ appointment.patient_name }}</td>
+                        <td>Patient ID: {{ appointment.patient_id }}</td>
                         <td>{{ appointment.appointment_date }}</td>
                         <td>{{ appointment.appointment_time }}</td>
 
