@@ -31,3 +31,22 @@ def test_doctor_register_page():
     response = requests.get(f"{BASE_URL}/doctor/register")
 
     assert response.status_code == 200
+
+
+def test_patient_dashboard():
+    response = requests.get(f"{BASE_URL}/patient/dashboard")
+
+    assert response.status_code == 200
+
+def test_doctor_dashboard():
+    response = requests.get(f"{BASE_URL}/doctor/dashboard")
+
+    assert response.status_code == 200
+
+def test_auth_service():
+    response = requests.get("http://localhost:5001")
+
+    assert response.status_code == 200
+
+def test_basic_pipeline():
+    assert True
