@@ -127,6 +127,31 @@ def get_doctors():
     return jsonify(result), 200
 
 
+@app.route("/patient/<int:patient_id>", methods=["GET"])
+def get_patient(patient_id):
+    patient = Patient.query.get_or_404(patient_id)
+    
+    return jsonify({
+        "id": patient.id,
+        "name": patient.name,
+        "email": patient.email
+    }), 200
+
+
+@app.route("/doctor/<int:doctor_id>", methods=["GET"])
+def get_doctor(doctor_id):
+    doctor = Doctor.query.get_or_404(doctor_id)
+    
+    return jsonify({
+        "id": doctor.id,
+        "name": doctor.name,
+        "specialization": doctor.specialization,
+        "phone": doctor.phone,
+        "qualification": doctor.qualification,
+        "experience": doctor.experience
+    }), 200
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

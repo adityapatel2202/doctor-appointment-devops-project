@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import requests
+import os
 
 app = Flask(__name__)
 app.secret_key = "secret123"
 
-AUTH_SERVICE_URL = "http://auth-service:5000"
-BOOKING_SERVICE_URL = "http://booking-service:5000"
+AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://auth-service:5000")
+BOOKING_SERVICE_URL = os.getenv("BOOKING_SERVICE_URL", "http://booking-service:5000")
 
 
 @app.route("/")

@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import requests
+import os
 
 app = Flask(__name__)
 
@@ -7,6 +9,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///booking.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+
+# Use environment variable or default to Docker service name
+AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://auth-service:5000")
 
 
 class Slot(db.Model):
@@ -135,10 +140,24 @@ def patient_appointments(patient_id):
 
     result = []
     for appointment in appointments:
+        # Fetch doctor name and specialization from auth service
+        doctor_name = "Unknown"
+        doctor_specialization = "Unknown"
+        try:
+            response = requests.get(f"{AUTH_SERVICE_URL}/doctor/{appointment.doctor_id}")
+            if response.status_code == 200:
+                doctor_data = response.json()
+                doctor_name = doctor_data.get("name", "Unknown")
+                doctor_specialization = doctor_data.get("specialization", "Unknown")
+        except:
+            pass
+        
         result.append({
             "id": appointment.id,
             "patient_id": appointment.patient_id,
             "doctor_id": appointment.doctor_id,
+            "doctor_name": doctor_name,
+            "specialization": doctor_specialization,
             "appointment_date": appointment.appointment_date,
             "appointment_time": appointment.appointment_time,
             "status": appointment.status
@@ -154,9 +173,20 @@ def doctor_appointments(doctor_id):
 
     result = []
     for appointment in appointments:
+        # Fetch patient name from auth service
+        patient_name = "Unknown"
+        try:
+            response = requests.get(f"{AUTH_SERVICE_URL}/patient/{appointment.patient_id}")
+            if response.status_code == 200:
+                patient_data = response.json()
+                patient_name = patient_data.get("name", "Unknown")
+        except:
+            pass
+        
         result.append({
             "id": appointment.id,
             "patient_id": appointment.patient_id,
+            "patient_name": patient_name,
             "doctor_id": appointment.doctor_id,
             "appointment_date": appointment.appointment_date,
             "appointment_time": appointment.appointment_time,
