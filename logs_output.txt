@@ -1,0 +1,137 @@
+auth-container  |  * Serving Flask app 'app'
+auth-container  |  * Debug mode: off
+auth-container  | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+auth-container  |  * Running on all addresses (0.0.0.0)
+auth-container  |  * Running on http://127.0.0.1:5000
+auth-container  |  * Running on http://172.19.0.3:5000
+auth-container  | [33mPress CTRL+C to quit[0m
+auth-container  | 172.19.0.4 - - [10/May/2026 11:20:42] "[35m[1mPOST /patient/register HTTP/1.1[0m" 201 -
+auth-container  | 172.19.0.4 - - [10/May/2026 11:20:55] "POST /patient/login HTTP/1.1" 200 -
+auth-container  | 172.19.0.4 - - [10/May/2026 11:20:55] "GET /doctors HTTP/1.1" 200 -
+auth-container  | 172.19.0.4 - - [10/May/2026 11:25:26] "[35m[1mPOST /doctor/register HTTP/1.1[0m" 201 -
+auth-container  | 172.19.0.4 - - [10/May/2026 11:25:34] "POST /doctor/login HTTP/1.1" 200 -
+auth-container  | 172.19.0.4 - - [10/May/2026 11:25:36] "POST /doctor/login HTTP/1.1" 200 -
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+main-app-container  |     response = self.full_dispatch_request()
+main-app-container  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+main-app-container  |     rv = self.handle_user_exception(e)
+main-app-container  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+main-app-container  |     rv = self.dispatch_request()
+main-app-container  |          ^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+main-app-container  |     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/app/app.py", line 190, in doctor_dashboard
+main-app-container  |     appointments_response = requests.get(f"{BOOKING_SERVICE_URL}/appointments/doctor/{doctor_id}")
+main-app-container  |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/api.py", line 73, in get
+main-app-container  |     return request("get", url, params=params, **kwargs)
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/api.py", line 59, in request
+main-app-container  |     return session.request(method=method, url=url, **kwargs)
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/sessions.py", line 592, in request
+main-app-container  |     resp = self.send(prep, **send_kwargs)
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/sessions.py", line 706, in send
+main-app-container  |     r = adapter.send(request, **kwargs)
+main-app-container  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/adapters.py", line 678, in send
+main-app-container  |     raise ConnectionError(e, request=request)
+main-app-container  | requests.exceptions.ConnectionError: HTTPConnectionPool(host='booking-service', port=5000): Max retries exceeded with url: /appointments/doctor/1 (Caused by NameResolutionError("HTTPConnection(host='booking-service', port=5000): Failed to resolve 'booking-service' ([Errno -5] No address associated with hostname)"))
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:38] "[35m[1mGET /doctor/dashboard HTTP/1.1[0m" 500 -
+main-app-container  | [2026-05-10 11:25:40,291] ERROR in app: Exception on /doctor/dashboard [GET]
+main-app-container  | Traceback (most recent call last):
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connection.py", line 204, in _new_conn
+main-app-container  |     sock = connection.create_connection(
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/util/connection.py", line 60, in create_connection
+main-app-container  |     for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+main-app-container  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/socket.py", line 974, in getaddrinfo
+main-app-container  |     for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+main-app-container  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  | socket.gaierror: [Errno -2] Name or service not known
+main-app-container  | 
+main-app-container  | The above exception was the direct cause of the following exception:
+main-app-container  | 
+main-app-container  | Traceback (most recent call last):
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+main-app-container  |     response = self._make_request(
+main-app-container  |                ^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+main-app-container  |     conn.request(
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connection.py", line 500, in request
+main-app-container  |     self.endheaders()
+main-app-container  |   File "/usr/local/lib/python3.11/http/client.py", line 1318, in endheaders
+main-app-container  |     self._send_output(message_body, encode_chunked=encode_chunked)
+main-app-container  |   File "/usr/local/lib/python3.11/http/client.py", line 1078, in _send_output
+main-app-container  |     self.send(msg)
+main-app-container  |   File "/usr/local/lib/python3.11/http/client.py", line 1016, in send
+main-app-container  |     self.connect()
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connection.py", line 331, in connect
+main-app-container  |     self.sock = self._new_conn()
+main-app-container  |                 ^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connection.py", line 211, in _new_conn
+main-app-container  |     raise NameResolutionError(self.host, self, e) from e
+main-app-container  | urllib3.exceptions.NameResolutionError: HTTPConnection(host='booking-service', port=5000): Failed to resolve 'booking-service' ([Errno -2] Name or service not known)
+main-app-container  | 
+main-app-container  | The above exception was the direct cause of the following exception:
+main-app-container  | 
+main-app-container  | Traceback (most recent call last):
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/adapters.py", line 645, in send
+main-app-container  |     resp = conn.urlopen(
+main-app-container  |            ^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+main-app-container  |     retries = retries.increment(
+main-app-container  |               ^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/urllib3/util/retry.py", line 543, in increment
+main-app-container  |     raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+main-app-container  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  | urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='booking-service', port=5000): Max retries exceeded with url: /appointments/doctor/1 (Caused by NameResolutionError("HTTPConnection(host='booking-service', port=5000): Failed to resolve 'booking-service' ([Errno -2] Name or service not known)"))
+main-app-container  | 
+main-app-container  | During handling of the above exception, another exception occurred:
+main-app-container  | 
+main-app-container  | Traceback (most recent call last):
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+main-app-container  |     response = self.full_dispatch_request()
+main-app-container  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+main-app-container  |     rv = self.handle_user_exception(e)
+main-app-container  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+main-app-container  |     rv = self.dispatch_request()
+main-app-container  |          ^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+main-app-container  |     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/app/app.py", line 190, in doctor_dashboard
+main-app-container  |     appointments_response = requests.get(f"{BOOKING_SERVICE_URL}/appointments/doctor/{doctor_id}")
+main-app-container  |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/api.py", line 73, in get
+main-app-container  |     return request("get", url, params=params, **kwargs)
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/api.py", line 59, in request
+main-app-container  |     return session.request(method=method, url=url, **kwargs)
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/sessions.py", line 592, in request
+main-app-container  |     resp = self.send(prep, **send_kwargs)
+main-app-container  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/sessions.py", line 706, in send
+main-app-container  |     r = adapter.send(request, **kwargs)
+main-app-container  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+main-app-container  |   File "/usr/local/lib/python3.11/site-packages/requests/adapters.py", line 678, in send
+main-app-container  |     raise ConnectionError(e, request=request)
+main-app-container  | requests.exceptions.ConnectionError: HTTPConnectionPool(host='booking-service', port=5000): Max retries exceeded with url: /appointments/doctor/1 (Caused by NameResolutionError("HTTPConnection(host='booking-service', port=5000): Failed to resolve 'booking-service' ([Errno -2] Name or service not known)"))
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:40] "[35m[1mGET /doctor/dashboard HTTP/1.1[0m" 500 -
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:49] "[33mGET /doctor/ HTTP/1.1[0m" 404 -
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:55] "GET / HTTP/1.1" 200 -
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:55] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:56] "GET /doctor/login HTTP/1.1" 200 -
+main-app-container  | 172.19.0.1 - - [10/May/2026 11:25:56] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+booking-container   | Traceback (most recent call last):
+booking-container   |   File "/app/app.py", line 3, in <module>
+booking-container   |     import requests
+booking-container   | ModuleNotFoundError: No module named 'requests'
